@@ -1,0 +1,17 @@
+📑 Summary   ￼
+
+Methodology
+
+Proposes a Proof-of-Work (PoW) CAPTCHA that replaces image/text challenges with a client-side cryptographic puzzle. Unlike classic PoW (exact nonce), this scheme defines a range-target—the server issues a hash function plus starting_point, lower_target, and upper_target. Users iterate from the starting point, hash, and submit any value whose hash falls within the target range. Crucially, the computation is repurposed to brute-force password hashes stored server-side, so solving CAPTCHAs contributes to password-cracking tasks (e.g., for law-enforcement use). Difficulty is tuned by narrowing the target range; server verification is O(1) (single hash + bounds check).  ￼
+
+Steps
+	1.	Puzzle issuance — Server returns {hash_type, starting_point, lower_target, upper_target, token}.  ￼
+	2.	Client solve — Increment from starting_point, compute hashes, stop when the hash prefix (n bits) lies between the bounds.  ￼
+	3.	Submission & verification — Client sends {token, value}; server re-hashes once, checks bounds, enforces expiry, and confirms value ≥ starting_point.  ￼
+	4.	Work accounting — Server estimates expected work
+      x = 2^{(n-1)}/(\text{upper}-\text{lower}) and compares to implied hashes value - starting_point to flag anomalies (still accept, but exclude from next starting point selection).  ￼
+	5.	Batch consensus for progress — To advance coverage over the keyspace, serve the same puzzle to a small batch; when ≥51% agree on a solution, set the next batch’s starting_point = prev_solution + 1.  ￼
+	6.	Difficulty & policy — Adjust bounds per risk signals; discuss related PoW/anti-abuse systems (Hashcash, CoinHive, Cloudflare Turnstile).  ￼
+
+Results
+	•	Concept evaluation (no full system benchmarks): argues UX benefits (no user interaction), ML-resistance (best strategy is brute-force), and “useful work” (hash-cracking) vs. wasteful PoW. Acknowledges threats: electricity-cost arbitrage, FPGA/ASIC/botnet acceleration, and cryptojacking risks; positions security as comparable to modern CAPTCHAs and recommends dynamic difficulty + environment signals. 
