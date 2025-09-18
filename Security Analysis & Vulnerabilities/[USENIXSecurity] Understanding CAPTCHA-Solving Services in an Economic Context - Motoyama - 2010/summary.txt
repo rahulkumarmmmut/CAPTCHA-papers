@@ -1,1 +1,28 @@
+📑 Summary
 
+Methodology
+
+The authors analyzed the CAPTCHA-solving ecosystem through both technical and economic lenses. They:
+	•	Studied automated solvers such as Xrumer (forum spamming tool) and reCaptchaOCR.
+	•	Engaged directly with commercial human-solving services, both as customers (demand side) and workers (supply side).
+	•	Collected empirical data on service quality (accuracy, latency, capacity) and interviewed a service operator (alias MR. E) to validate findings.
+	•	Evaluated the labor market dynamics behind CAPTCHA solving, including worker demographics, wages, and geographic distribution.
+
+⸻
+
+Steps
+	1.	Review of CAPTCHA design and history – traced the evolution of CAPTCHA generation and obfuscation techniques.
+	2.	Automated solver evaluation – tested accuracy, speed, and economics of Xrumer and reCaptchaOCR.
+	3.	Human solver services study – registered accounts on retail CAPTCHA-solving services, submitted large workloads, and analyzed solution quality.
+	4.	Workforce analysis – created worker accounts on backend services (PixProfit, Kolotibablo), monitoring payout structures and monthly earnings.
+	5.	Empirical measurements – collected ~7,500 CAPTCHAs from popular sites and used them to benchmark solver performance.
+	6.	Market investigation – compared service pricing models, capacity, response time, and examined arbitrage between premium and low-cost providers.
+
+⸻
+
+Results
+	•	Automated solvers: Found to be limited, niche, and economically uncompetitive. For example, reCaptchaOCR achieved only 18–30% accuracy at 12–105 seconds per CAPTCHA, far below human-level performance (75–90%).
+	•	Human solvers: Became dominant in the market, with retail costs as low as $1 per 1,000 CAPTCHAs. Accuracy rates ranged 86–89%, with median response times of 10–20 seconds.
+	•	Labor markets: Outsourced to low-wage regions (India, Bangladesh, Vietnam, China), with workers earning $0.50–$1 per 1,000 CAPTCHAs, sometimes less.
+	•	Economic framing: The “security” of CAPTCHAs depends less on technical strength and more on whether the cost to solve exceeds the value of the protected asset.
+	•	Market dynamics: Strong downward price pressure due to commoditization and arbitrage; profitability for service operators could reach ~50% margins.
