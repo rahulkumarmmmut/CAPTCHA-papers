@@ -1,0 +1,17 @@
+📑 Summary
+
+Methodology
+
+Black-box study of Google reCAPTCHA’s risk analysis and image challenges. The authors probe how cookies/browsing history, user-agent/canvas fingerprinting, and site binding influence challenge difficulty, then build a low-cost automated solver that combines off-the-shelf image-annotation services (e.g., Clarifai, GRIS), a Word2Vec-based tag classifier, and a history module leveraging repeated images.  ￼
+
+Steps
+	1.	Risk analysis probing — Measure effects of aged Google cookies (≈9 days), request caps per cookie, and environment mismatches (UA/engine/canvas) on whether users get checkbox, image, or fallback text CAPTCHAs.  ￼
+	2.	Token harvesting at scale — Create and “age” many cookies; quantify daily checkbox tokens obtainable and service-side throttling/blocks.  ￼
+	3.	Image-solver pipeline — Extract hint + candidate images; run multiple annotation modules; use Word2Vec similarity to map tags→hint; exploit image repetition via perceptual hashing and a labeled history set; select images under observed acceptance “flexibility” rules.  ￼
+	4.	Evaluation — Simulations on a collected dataset, then live tests against reCAPTCHA; compare to a commercial human-solver service; test applicability to Facebook image CAPTCHA.  ￼
+
+Results
+	•	Attack accuracy & speed: Automated system solves 70.78% of reCAPTCHA image challenges in ~19 s on average; an offline variant (no external services) achieves ~41.6%.  ￼
+	•	Risk analysis insights: Aged cookies (≈9 days) enable repeated checkbox passes; UA/engine/canvas mismatches trigger harder/fallback challenges; screen resolution/mouse patterns had negligible effect in their tests.  ￼
+	•	Economics & scalability: Able to create >63k cookies/day from one IP; estimated 2.5k checkbox passes/hour under optimal rates; automated solver outperforms a paid service they tested (≈44.3% pass, 22.5 s).  ￼
+	•	Generalization: Applied to Facebook image CAPTCHA with 83.5% accuracy, highlighting cross-scheme weaknesses. 
