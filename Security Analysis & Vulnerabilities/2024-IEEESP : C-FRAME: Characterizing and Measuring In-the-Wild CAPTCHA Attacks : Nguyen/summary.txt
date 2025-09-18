@@ -1,0 +1,19 @@
+📑 Summary
+
+Methodology
+
+The paper designs C-FRAME, a measurement system that passively simulates human workers on CAPTCHA farms (e.g., 2captcha, 9kw) to capture real-time, in-the-wild attack telemetry without actually solving challenges. Key ideas: (1) study modern behavioral CAPTCHAs and farm APIs to find a vantage point (farms must disclose target site URLs/site-keys to workers), (2) run farm worker software in VMs and MITM the worker–farm channel to tamper the site-key so the service returns an error (worker skips; C-FRAME still learns the target), (3) log target URLs, site-keys, timestamps for large-scale analysis; then apply a grounded-theory qualitative pipeline plus quantitative measurements to taxonomy and measure attacks.  ￼
+
+Steps
+	1.	Protocol & ecosystem study — Systematize workflows of six behavioral CAPTCHA services (e.g., reCAPTCHA v2/v3, hCaptcha, Arkose/Funcaptcha, GeeTest, Turnstile) and six farm APIs; observe that farms must pass target URL + site-key to workers.  ￼
+	2.	System design — Build C-FRAME: Windows VMs running farm worker apps; MITM proxy injects a modified site-key so puzzles fail gracefully while capturing target metadata; no funds paid and no live puzzles relayed.  ￼
+	3.	Deployment — Operate for 92 days; collect 425,257 attack requests, 42,612 unique URLs, 1,417 FQDNs (merged to 1,023 orgs; 1,285 eTLD+1).  ￼
+	4.	Qualitative analysis — Three analysts apply grounded-theory coding over a high-frequency subset to derive 34 attack categories grouped into four meta-categories (fraud, abuse, spam/scam, gray/benign); inter-rater Krippendorff’s α ≈ 0.88.  ￼
+	5.	Measurement analysis — Quantify targets, geographies, and services; examine temporal patterns and category stability over time.  ￼
+
+Results
+	•	Scale & scope: 425k attacks across 1,417 sites/1,285 eTLD+1, spanning 58 countries / 5 continents over 92 days. Twitter is the top target (≈ 255,480 requests).  ￼
+	•	Attack taxonomy: 34 categories in 4 meta-groups. Examples: event-ticket bots (e.g., Taylor Swift Brazil sales), streaming fraud, Amazon Flex job bots, appointment/visa bots, crypto/offer abuse, government-data scraping.  ￼
+	•	Service breakdown: Attacks observed against 12+ CAPTCHA services; Funcaptcha dominates by request count (≈355,111), while reCAPTCHA spans the most distinct eTLD+1 (≈846).  ￼
+	•	Stability: Category discovery saturates early; categories remain stable as new domains appear (temporal CDFs).  ￼
+	•	Takeaways: Modern behavioral CAPTCHAs and farms have co-evolved; farm mechanics (URL/site-key disclosure, proxy/fingerprint sharing) create a measurable vantage point. Results highlight the breadth of real-world abuse and inform remediation directions (policy, detection signals, and ecosystem interventions). 
