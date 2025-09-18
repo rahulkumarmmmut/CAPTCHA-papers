@@ -1,0 +1,23 @@
+📑 Summary   ￼
+
+Methodology
+
+Proposes mouse dynamics as a behavioral biometric for continuous, passive user verification and intrusion detection. Raw cursor events are intercepted and transformed into higher-level actions (Move, Drag-Drop, Point-Click, Silence). A mouse signature is constructed from seven factors (speed vs. distance curve; average speed per direction; direction histogram; speed per action type; action-type histogram; distance histogram; elapsed-time histogram). A per-user multilayer perceptron (39 inputs → 40 hidden → 1 output) produces a confidence ratio (CR); thresholds yield FAR/FRR and ROC curves. Three experiments (real-world, fixed-env browsing, and tightly controlled tasks) evaluate accuracy, plus an analysis of session length and mean time to alarm (MTTA).  ￼
+
+Steps
+	1.	Data interception & sessioning — Log mouse events, segment into sessions (start/end rules), and categorize actions. Apply noise filters (e.g., distance 25–900 px; drop extreme speeds).  ￼
+	2.	Feature extraction — Compute the seven signature factors (e.g., 12 sampled points from speed-distance curve; 8-bin direction features; histograms for action types, distance, and elapsed time).  ￼
+	3.	Modeling — Train per-user NN (Levenberg–Marquardt) on positive (own) and negative (others) sessions; store reference signature.  ￼
+	4.	Verification — For a new session, compute CR and compare to threshold; evaluate via ROC, FAR, FRR.  ￼
+	5.	Experiments —
+	•	Main (real-world): 22 users, 998 sessions, 284 hours total.
+	•	Experiment 2 (fixed env): 7 users, IE 6 only.
+	•	Experiment 3 (controlled tasks): 7 users, prescribed actions/directions.
+	•	Session-length study: vary actions per session (1000–3000) to assess accuracy/MTTA.  ￼
+
+Results
+	•	Main experiment (22 users): At ~50% threshold (EER), FAR = 2.4649% and FRR = 2.4614%.  ￼
+	•	Fixed-env browsing: At 50% threshold, FRR = 6.25%, FAR = 1.25%.  ￼
+	•	Controlled tasks: At 50% threshold, FAR = 2.245%, FRR = 0.898%; per-user models correctly identify the held-out sessions.  ￼
+	•	Session length: Around n = 2000 actions gives a good trade-off (e.g., FRR ≈ 3.29%, FAR ≈ 2.65%); MTTA ≈ 13.55 minutes (dominated by data collection).  ￼
+	•	Takeaways: Accuracy surpasses some commercial biometrics (voice/face) but does not meet strict European access-control standards (e.g., FAR < 0.001%, FRR < 1%). Best suited for continuous re-authentication / intrusion detection; sensitive to environment settings (resolution, pointer speed), which should be fixed per user/machine.
