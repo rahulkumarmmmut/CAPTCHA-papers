@@ -1,0 +1,26 @@
+📑 Summary
+
+Methodology
+
+The authors introduced Yet Another Text Captcha Solver (YATCS), a flexible framework designed to break diverse text-based CAPTCHA schemes. Their methodology relied on:
+	•	Pre-processing: Removing noise, normalizing image size, and enhancing contrast.
+	•	Segmentation-free recognition: Instead of splitting CAPTCHA characters explicitly, the system uses Hidden Markov Models (HMMs) to recognize character sequences directly.
+	•	Training with labeled data: Building statistical models from large datasets of labeled CAPTCHA samples.
+
+⸻
+
+Steps
+	1.	Data collection – Gathered thousands of CAPTCHA samples from real-world deployments (e.g., reCAPTCHA, BotDetect, Asirra).
+	2.	Pre-processing – Applied noise reduction, binarization, and affine normalization to prepare images for recognition.
+	3.	Feature extraction – Used sliding-window features such as pixel densities and edge orientations.
+	4.	Model training – Trained HMMs on labeled character data to learn probabilistic transitions between characters.
+	5.	Sequence decoding – Applied the Viterbi algorithm to find the most likely text sequence for each CAPTCHA.
+	6.	Evaluation – Benchmarked against state-of-the-art solvers to compare success rates and efficiency.
+
+⸻
+
+Results
+	•	YATCS achieved high success rates on multiple real-world CAPTCHA schemes, outperforming rule-based and segmentation-dependent solvers.
+	•	Demonstrated resilience against obfuscation techniques like background clutter, distortion, and overlapping characters.
+	•	Highlighted that segmentation-free approaches generalize better across different CAPTCHA types.
+	•	Suggested that many widely deployed text CAPTCHAs were already at risk of being broken using statistical learning models.
