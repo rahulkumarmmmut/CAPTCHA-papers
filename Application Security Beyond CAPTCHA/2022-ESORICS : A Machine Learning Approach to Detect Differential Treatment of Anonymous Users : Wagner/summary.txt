@@ -1,0 +1,22 @@
+📑 Summary   ￼
+
+Methodology
+
+Builds supervised ML classifiers to detect when sites treat Tor users differently (blocked vs. CAPTCHA vs. same), using features from HTML, HTTP traces, and screenshots. Trains binary and multi-class models across six feature sets (from “all features” to HTML-only or HTTP-only, with/without Tor–Firefox diffs). Models are tree/ensemble based (Decision Trees, Random Forest, AdaBoost, Gradient Boosting) with grid-search CV and feature elimination. Compared against prior heuristics used in Tor-blocking studies.  ￼
+
+Steps
+	1.	Data collection & labeling — Paired visits (Firefox vs. Tor Browser) to top sites + subsites; save HTML, HAR/HTTP, and screenshots; manual labels: blocked, CAPTCHA, same. Initial training set: 3,409 paired visits; larger measurement: 998 topsites, 3,992 subsites, 1,574 searches via 101 Tor exit nodes.  ￼
+	2.	Feature engineering —
+	•	Screenshots: perceptual/wavelet hashes & pairwise diffs.
+	•	HTML: size/diffs, tag frequencies, JS include domains/paths (bag-of-words), page-text similarity (MinHash/TF-IDF).
+	•	HTTP: status codes/frequencies, counts of requests/responses & cookies.  ￼
+	3.	Model training & selection — Handle class imbalance via ensemble methods; 10-fold CV; recursive/tree-based feature elimination; pick best per feature set for binary and multi-class tasks.  ￼
+	4.	Deployment/measurement — Apply best models to the large crawl; analyze block/CAPTCHA rates by visit type, hoster/CDN, category, rank, and exit-node traits.  ￼
+
+Results
+	•	Classifier performance: Binary macro-F1 up to 1.00; multi-class macro-F1 up to 0.966—substantially better than heuristic baselines (blocked-class F1 only 0.25–0.74 for heuristics).  ￼
+	•	Prevalence: Average block rates—16.7% landing pages, 15.2% subsites, 3.8% searches (incremental). CAPTCHA rates are lower: 0.15% landing, 0.23% subsites, 1.2% searches.  ￼
+	•	By hoster/CDN: Akamai (28%), EdgeCast (31%), Cloudflare (15%) exceed average block rates; Google dominates search blocking—~39.8% of search pages show block/CAPTCHA to Tor users.  ￼
+	•	By category: Highest block rates for Fashion/Beauty (51%) and Finance/Banking (29–35%); searches in Search Engines show elevated CAPTCHA/blocks, largely due to Google.  ￼
+	•	Exit-node traits: No significant correlation with block/CAPTCHA rates (country differences exist but with small effect sizes).  ￼
+	•	Takeaway: Heuristics underestimate blocking; ML enables scalable, automated detection. Anonymous users face non-trivial access friction, often CAPTCHAs or outright blocks, concentrated at certain CDNs and categories. 
