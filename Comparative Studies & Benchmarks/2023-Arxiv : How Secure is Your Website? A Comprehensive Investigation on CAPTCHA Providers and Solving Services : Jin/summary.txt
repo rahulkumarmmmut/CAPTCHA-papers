@@ -1,0 +1,22 @@
+📑 Summary   ￼
+
+Methodology
+	•	Measured the current CAPTCHA-as-a-Service ecosystem (Google reCAPTCHA, hCaptcha, GeeTest, Arkose/FunCaptcha) and solver services (2Captcha, BestCaptchaSolver, AntiCaptcha, DeathByCaptcha, CapSolver).
+	•	Ran adversarial experiments: invoked provider–solver pairs on demo/live pages at 5-minute intervals for one day, logging success/failure and response time; additionally analyzed pricing and workload stats published by solver sites.
+	•	Compared difficulty settings (e.g., hCaptcha “difficulty” levels) and inspected labor economics (e.g., per-1k CAPTCHA wages).  ￼
+
+Steps
+	1.	Model provider frameworks — Document third-party CAPTCHA flow (site key, iframe, token issuance/verification) and provider variants (reCAPTCHA v2/v3, hCaptcha, GeeTest, FunCaptcha).  ￼
+	2.	Select solvers & prices — Compile pricing for each provider across the five retailers; note “human-only” vs “100% AI” claims.  ￼
+	3.	Experiment design — For each provider–solver pair, execute a request every 5 minutes for 24h; capture solve time and result (“solved/unsolvable”).  ￼
+	4.	Difficulty sensitivity — Vary hCaptcha difficulty and compare performance (time/success).  ￼
+	5.	Workload/labor — Record public workload dashboards (workers busy/idle) and advertised wages (e.g., 2Captcha).  ￼
+
+Results
+	•	High success rates: Most provider–solver pairs achieved ~80–95% success; CapSolver (advertised as automated) exceeded 80% on most providers, implying that modern CAPTCHAs are widely bypassable by AI.  ￼
+	•	FunCaptcha stands out: Multiple services (2Captcha, DeathByCaptcha, CapSolver) returned “Unsolvable” for FunCaptcha in these tests—suggesting relatively better resistance to automation (though not to human farms).  ￼
+	•	Solve time: Typical 20–40 s per image CAPTCHA. CapSolver showed the lowest mean time and variance; AntiCaptcha had higher mean/variance consistent with human solving.  ￼
+	•	Difficulty settings: hCaptcha “difficulty” had little effect on solver response time or success rate.  ￼
+	•	Economics: Prices vary by provider/type (reCAPTCHA v2/v3, GeeTest, hCaptcha); 2Captcha wages advertised at $0.26/1k text and $1/1k image solves for workers, underscoring cheap human labor at scale.  ￼
+	•	Capacity: Public dashboards showed no sustained overload; worker availability fluctuates with time-zones but services keep latency reasonable.  ￼
+	•	Takeaway: “Most latest CAPTCHAs are vulnerable to both human and automated solvers”; providers increasingly lean on behavioral/environmental signals, yet automated solvers remain effective.
