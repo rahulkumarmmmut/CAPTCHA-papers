@@ -1,0 +1,19 @@
+📑 Summary   ￼
+
+Methodology
+
+A deep-learning attack pipeline that pairs object detection (custom YOLOv3 models and Google Cloud Vision API) with human-mimicking mouse movements (Bezier-curve cursor paths) to lower reCAPTCHA’s risk score before solving image challenges. The system handles all three reCAPTCHA v2 challenge types (3×3, 4×4, 4×2) and is evaluated in live tests on Google’s demo site with VPN IP rotation. Two YOLOv3 variants are trained: one on ImageNet-sourced images and one on images collected from reCAPTCHA itself (transfer learning).  ￼
+
+Steps
+	1.	Risk warm-up: Move cursor along Bezier paths to improve the initial risk score (reduces image noise).  ￼
+	2.	Clue & image capture: Read the plaintext text clue; screenshot and crop the challenge tiles. For 4×4, reassemble the full image before detection.  ￼
+	3.	Detection & selection:
+	•	3×3 / 4×2: run detector per tile; click tiles matching the clue; if tiles refresh, repeat until none match.
+	•	4×4: detect on the reassembled image, then select grid cells overlapping predicted boxes.  ￼
+	4.	Training setup: Build two YOLOv3 models (ImageNet vs. reCAPTCHA images), using transfer learning; also test Cloud Vision.  ￼
+	5.	Evaluation: 200 live runs per model, with/without mouse movement; rotate IP via VPN between runs.  ￼
+
+Results
+	•	Overall bypass (with movement): YOLO-ImageNet 61%, YOLO-reCAPTCHA 68%, Cloud Vision 73%; removing movement drops success by 23–31% depending on model.  ￼
+	•	By challenge type (with movement): Type-2 (4×4) ≈ 88–91% success (easiest); Type-1 (3×3) improves markedly with movement (e.g., Cloud Vision 67% vs. 20% without); Type-3 (4×2) is hardest (24–33%).  ￼
+	•	Takeaways / defenses suggested: Store clues non-plaintext; drop Type-2; add image transformations (noise, rotations, color shifts); consider context-sensitive tasks (e.g., counting).  
