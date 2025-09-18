@@ -1,0 +1,19 @@
+📑 Summary   ￼
+
+Methodology
+	•	In-the-wild measurement + user studies. The authors first inspect the top 200 websites to catalog deployed CAPTCHA types, then run large user studies totaling 1,400 participants who collectively solve 14,000 CAPTCHAs (plus an abandonment study). They compare solving time, user preference, and the impact of experimental context (solving CAPTCHAs directly vs. as part of account creation).  ￼
+	•	CAPTCHA set. Ten real, unmodified CAPTCHAs spanning reCAPTCHA v2 (click/image, easy/hard), hCaptcha (easy/hard), Arkose game-based (rotation/selection), Geetest slider, and distorted text (simple/masked/moving).  ￼
+
+Steps
+	1.	Website inspection: Manually examine top sites for CAPTCHA usage/types; reCAPTCHA appears on 34% of sites; sliders/text each ~7%; game-based ~4.5%; “invisible” ~6%.  ￼
+	2.	Main user study (n=1,000): Two settings—Direct vs. Contextualized (embedded in account creation). Each participant solves 10 randomized CAPTCHAs; collect times, preferences, and demographics.  ￼
+	3.	Abandonment study (n=~400): Four groups vary context and compensation to quantify drop-off behavior and timing.  ￼
+	4.	Analysis: Compare medians/means, run statistical tests (e.g., Kruskal–Wallis), examine age/device/input effects, and contrast human results with state-of-the-art bot performance from prior literature.  ￼
+
+Results
+	•	Solving time differences are large across types. reCAPTCHA (click) is fastest (median ~3.7 s), while game/slider and harder image tasks are slower; hCaptcha (difficult) shows longer times and more rounds.  ￼
+	•	Preferences ≠ speed. Users often prefer game/slider CAPTCHAs despite longer times; overall preference is not fully correlated with solving time.  ￼
+	•	Context matters. Embedding CAPTCHAs in a natural task (contextualized setting) increases mean solving times by ~26.7% on average; largest deltas include reCAPTCHA (easy click) +57.5% and Arkose (rotation) +56.1% (some image-task differences not statistically significant due to sample skew).  ￼
+	•	Demographics. Age increases solving time by about 0.09 s per year on average; education shows no clear correlation; device/input effects are mixed and CAPTCHA-type dependent.  ￼
+	•	Abandonment is substantial. In a follow-on study, ~30% of participants abandon; users in contextualized tasks are ~120% more likely to quit than direct-setting users; higher pay reduces abandonment in contextualized runs but can increase it in direct runs.  ￼
+	•	Humans vs. bots. Compiling best-known bot results from prior work, the paper notes bots often outperform humans in both speed and accuracy on many types (with nuances per scheme). 
