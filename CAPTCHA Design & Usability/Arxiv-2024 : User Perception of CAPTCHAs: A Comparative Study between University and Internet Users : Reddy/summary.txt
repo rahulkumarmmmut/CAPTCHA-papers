@@ -1,0 +1,36 @@
+📑 Summary
+
+Methodology
+
+The authors conducted a comparative survey-based study to evaluate user perceptions of CAPTCHA usability and security. They recruited 259 participants from two distinct groups:
+	•	Amazon Mechanical Turk (MTurk) users with diverse demographics.
+	•	University computer science students with technical backgrounds.
+
+A 23-question survey was designed and deployed using Qualtrics, focusing on CAPTCHA types, usability issues, accessibility, frustration, and overall security perceptions. Both quantitative (Likert scale, ANOVA, chi-squared) and qualitative (open-ended feedback, thematic coding) analyses were applied ￼.
+
+⸻
+
+Steps
+	1.	Recruitment – 154 MTurk participants (150 valid), 109 university students (all valid).
+	2.	Survey design – Collected demographics, prior CAPTCHA experience, usability issues, device usage, accessibility challenges, and opinions on CAPTCHA effectiveness.
+	3.	Usability evaluation – Analyzed user-reported difficulties (distortion, size/shape, unclear instructions, case sensitivity, small-screen issues).
+	4.	Security perceptions – Asked whether CAPTCHAs are effective at distinguishing bots and whether they can withstand modern attacks.
+	5.	Comparative analysis – Compared MTurk vs. university responses to test six null hypotheses (differences in preference, difficulty perception, usability, security, abandonment rates, and overall stance).
+	6.	Statistical validation – Applied ANOVA and chi-squared tests to confirm significant differences between groups ￼.
+
+⸻
+
+Results
+	•	Usability challenges:
+	•	Distortion and unclear text/images were the top causes of failures.
+	•	Users often failed on the first attempt and had to retry, with many reporting frustration.
+	•	Small-screen devices (phones, tablets) worsened usability due to orientation, screen size, and input issues.
+	•	Abandonment trends:
+	•	65% of MTurk users admitted to leaving a page when faced with difficult CAPTCHAs, compared to 25% of university students, who showed greater persistence.
+	•	CAPTCHA preferences:
+	•	Image recognition CAPTCHAs were most common, while text CAPTCHAs remained popular.
+	•	MTurk users preferred text-based CAPTCHAs, while university students leaned toward image recognition.
+	•	Security perception:
+	•	MTurk users generally trusted CAPTCHAs more (64% considering them secure), while university students were more skeptical (only 44%).
+	•	Many respondents doubted that CAPTCHAs could keep up with advancing attacks.
+	•	Final stance: Most participants found CAPTCHAs either usable but insecure or secure but not user-friendly, highlighting a persistent security–usability tradeoff
