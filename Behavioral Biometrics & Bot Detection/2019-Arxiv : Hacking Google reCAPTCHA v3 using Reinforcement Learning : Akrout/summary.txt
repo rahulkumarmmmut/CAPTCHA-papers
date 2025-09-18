@@ -1,0 +1,16 @@
+📑 Summary
+
+Methodology
+
+The paper models reCAPTCHA v3 interaction as a grid-world RL problem where an agent learns mouse movements that yield a high reCAPTCHA score (≥0.9). A policy-gradient (REINFORCE) agent with a small two-layer MLP selects discrete actions {up, down, left, right}. The authors analyze how cell size (step granularity) affects detection and introduce a divide-and-conquer approach to generalize a policy trained on 100×100 grids to larger screen resolutions. To avoid bot fingerprints, they control a real browser via PyAutoGUI instead of Selenium and note that Tor/proxy usage lowers scores.  ￼
+
+Steps (high-level)
+	1.	Formulate the MDP: states = cursor positions; actions = four directions; reward from reCAPTCHA score after reaching the checkbox/goal.  ￼
+	2.	Train policy with REINFORCE (γ=0.99; LR=1e-3; batch=2000) on 100×100 grids; evaluate success over 1,000 runs.  ￼
+	3.	Scale to larger screens using divide-and-conquer: traverse the page via sequential 100×100 sub-grids without retraining.  ￼
+	4.	Environment choices: avoid Selenium (detected as automated), do not use Tor/VPN; interact with a standard browser via PyAutoGUI to emulate human input.  ￼
+
+Results
+	•	Success rate: 97.4% on 100×100 grids; >90% across larger grids using the divide-and-conquer strategy; 96.7% at 1000×1000 resolution.  ￼
+	•	Granularity effect: larger step sizes (e.g., 10-pixel “cells”) reduce success—more “jumping” looks non-human to reCAPTCHA.  ￼
+	•	Operational notes: Selenium use returned low scores; Tor IPs also scored low, while standard browser control via PyAutoGUI worked reliably in tests. 
