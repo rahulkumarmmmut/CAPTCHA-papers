@@ -1,0 +1,16 @@
+📑 Summary
+
+Methodology
+
+Survey-style analysis of behavioral biometrics for bot detection, focusing on mouse dynamics as a passive, continuous, and privacy-friendlier alternative (or complement) to CAPTCHAs. The paper reviews: (1) strengths/limitations of CAPTCHAs and passive input monitoring, (2) classic ML baselines (K-medoids, Naive Bayes) and deep models (2D-CNNs, 1D-CNNs, LSTMs, CNN+LSTM) over features such as \Delta x,\Delta y, velocities, and (3) purpose-built systems like BeCAPTCHA-Mouse and approaches for session-replay bot detection. It also catalogs major public mouse-dynamics datasets (Balabit, Bogazici, Attentive Cursor, SapiMouse, Chao Shen, DFL, ReMouse).  ￼
+
+Steps
+	1.	Threat & method review – Contrast CAPTCHAs vs. passive behavioral monitoring; motivate mouse dynamics for trusted interaction.
+	2.	Technique survey – Summarize engineered-feature ML (e.g., K-medoids, Naive Bayes) and deep sequence/vision models (2D-CNN, 1D-CNN, LSTM, CNN+LSTM) for cursor-trajectory classification.
+	3.	System patterns – Describe trajectory-level analysis (e.g., BeCAPTCHA-Mouse), synthetic trajectory generation (heuristics & GANs), and defenses against session-replay bots.
+	4.	Dataset review – Describe collection settings (controlled vs. in-the-wild), contents, and suitability; identify Balabit and Bogazici as strong candidates for follow-up studies.  ￼
+
+Results
+	•	Findings: Mouse-dynamics-based detection offers continuous, unobtrusive bot detection and tends to be more user-friendly than challenge-based CAPTCHAs; deep models (CNN/LSTM/hybrids) consistently outperform traditional baselines in reviewed works.
+	•	Practical takeaways: Public datasets vary widely; Balabit and Bogazici are highlighted as the most suitable starting points. Session-replay bots remain challenging; trajectory-level analysis and synthetic-data augmentation are promising countermeasures.
+	•	Conclusion: Bot activity is a rising, cross-industry risk; improving datasets and modeling of mouse dynamics is key to robust, low-friction bot detection.
