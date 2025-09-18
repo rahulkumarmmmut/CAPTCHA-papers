@@ -1,0 +1,18 @@
+📑 Summary   ￼
+
+Methodology
+	•	Proposes Cryptographic Attestation of Personhood (CAP): a WebAuthn-based challenge where users prove “human-in-the-loop” via a brief physical interaction (fingerprint/Face ID/touching a hardware key). Unlike login, CAP uses attestation-only (no account, no stored user data) and discards public keys after verification. Design goals: ephemeral, browser-based, usable, integrity-preserving, and privacy-preserving challenges.  ￼
+	•	Two evaluations:
+	1.	Pilot usability study comparing CAP (YubiKey) vs hCaptcha with 17 participants.
+	2.	Public demo on Cloudflare: 1,896 sessions plus a 93-response survey.  ￼
+
+Steps
+	1.	Challenge architecture — Reuse WebAuthn registration/attestation flow minus account binding; include timestamp & UA context in challenge; verify attestation, then discard keys; no user identifiers stored.  ￼
+	2.	Pilot study (lab) — Participants solved either hCaptcha (3×3 image selection) or hardware attestation (touch key). Measured task time and SUS usability scores; gathered preference feedback.  ￼
+	3.	Public demo (field) — Launched open demo supporting platform biometrics and FIDO keys; logged completion times/success; optional survey captured preference & privacy perception; analyzed environment dependencies (browser/OS/device).  ￼
+
+Results
+	•	Pilot (17 users): CAP faster and preferred. 13.5 s median vs 25.0 s for hCaptcha (p<0.001); SUS 77.1 (CAP) vs 65.3 (hCaptcha); 15/17 preferred CAP.  ￼
+	•	Public demo: 48.5% of 1,896 sessions achieved a successful validation; successful attempts averaged 10.6 s (vs Cloudflare hCaptcha baseline 24.5 s). 75% of survey respondents said they’d use CAP when available; 75% preferred it over CAPTCHAs; 60% felt confident in CAP’s privacy.  ￼
+	•	Compatibility & UX: Success strongly depends on device–browser support (e.g., Touch ID + Safari works; some platform attestations fail in other browsers). Messaging/pop-ups from browsers can confuse users; authors suggest clearer comms and ZK-attestation to strengthen privacy and reduce prompts.  ￼
+	•	Takeaway: CAP offers a usable, privacy-respecting alternative to traditional CAPTCHAs when hardware is available; best deployed as an optional challenge alongside fallbacks. 
