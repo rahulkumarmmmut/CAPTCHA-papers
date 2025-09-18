@@ -1,0 +1,18 @@
+📑 Summary   ￼
+
+Methodology
+
+Proposes two mouse-dynamics authentication models that classify sessions as genuine vs. imposter using engineered features and a Gaussian Naïve Bayes classifier. Features include classic histograms (movement Direction and Action-Type), per-direction and per-action average speed, a 12-point speed–distance curve extracted via a backprop NN, plus two new acceleration features: AAD (per-direction) and AAA (per-action). All features are min-max scaled before classification. Evaluated on a 48-user, 998-session public dataset with 3-fold cross-validation.  ￼
+
+Steps
+	1.	Preprocess & filter raw events (actions: move, silence, point-click, drag-drop); discard outliers (e.g., extreme speeds; keep distances roughly 25–1200 px).  ￼
+	2.	Sessioning & feature extraction: build MDH/ATH histograms; compute average speed by direction and action type; derive the 12-point speed–distance curve; add AAD/AAA acceleration features; scale to a uniform range.  ￼
+	3.	Modeling: train Gaussian Naïve Bayes on two variants—
+	•	Model A: {MSD, MDA, MDH, ATA, ATH}
+	•	Model B: {MSD, AAD, MDH, AAA, ATH}   ￼
+	4.	Evaluation: vary session length (500, 1000, 1500, 2000 actions) and report Accuracy, FAR, FRR; compare against Ahmed & Traoré (2010).  ￼
+
+Results
+	•	Accuracy ranges ~90–94% across settings; longer sessions generally improve Accuracy and reduce FAR/FRR. At 2000 actions, accuracies around 91.7–93.9% are reported depending on the model/fold.  ￼
+	•	Model B (with AAD/AAA) reduces feature count (34 vs. 39 used in prior work) and outperforms the 2010 baseline on average (e.g., at 2000 actions: prior ≈ 91.15%, proposed ≈ 91.73–92.21%, with competitive FAR/FRR).  ￼
+	•	Conclusion: mouse-dynamics authentication is feasible without special hardware; session length is a key driver of accuracy; adding acceleration features helps distinguish users.  
