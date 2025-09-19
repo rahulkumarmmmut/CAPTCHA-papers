@@ -1,0 +1,17 @@
+Summary
+
+Methodology
+
+Introduces Halligan, a generalized visual CAPTCHA solver built on vision–language models (VLMs) with light tool use. Core idea: reduce any visual CAPTCHA to a search/optimization problem—turn the natural-language instruction into an objective, and the challenge UI into a search space of actions (click, select, drag, slide, swap). Halligan first abstracts the CAPTCHA into frames/elements/keypoints, then plans and evaluates action sequences with VLM guidance to reach a solved state. The authors evaluate on a 26-type interactive benchmark (2,600 challenges) and via a 30-day field study by infiltrating a human CAPTCHA farm.  ￼
+
+Steps
+	1.	Objective identification: Parse screenshots/text to infer the task goal (e.g., “complete the puzzle”, “select all matching tiles”).
+	2.	CAPTCHA abstraction: Segment the interface into frames and interactable elements; label which ones are clickable, draggable, etc.
+	3.	Search & interaction: Explore candidate action sequences over the abstracted UI (discrete and continuous actions) and record resulting states.
+	4.	Evaluation & selection: Use VLM-based comparison/ranking to pick the best candidate that satisfies the objective; generate executable UI actions.
+	5.	Studies: (a) Closed-world benchmark across 26 CAPTCHA types; (b) Open-world farm infiltration measuring live success rates; (c) Adversarial tests (noise/blur, prompt-injection, distractions) and ablations.  ￼
+
+Results
+	•	Closed-world: 60.7% solve rate on 2,600 challenges spanning 26 CAPTCHA types; especially strong on discrete actions (click/swap/point), weaker on continuous actions (drag/slide). Outperforms specialized solvers within their domains and generalist web agents.  ￼
+	•	Open-world (30 days): 70.6% average success on previously unseen, in-the-wild challenges via farm infiltration; handled multiple providers (e.g., reCAPTCHA, hCaptcha, Arkose, GeeTest). Median per-challenge time ≈ 21.8 s; median cost ≈ $0.024.  ￼
+	•	Robustness: Visual transforms and prompt-injection lower success, but simple countermeasures recover much of it; repeated-attempt policies still allow high overall bypass probability. Implication: visual CAPTCHAs are increasingly vulnerable in the VLM/agent era; puzzle-less alternatives are advocated. 
