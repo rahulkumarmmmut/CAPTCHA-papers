@@ -1,0 +1,20 @@
+📑 Summary   ￼
+
+1) Methodology
+	•	Proposes a YOLOv3 (Darknet-53) object-detection pipeline to solve hCAPTCHA image challenges.
+	•	Builds a custom dataset (~13k images, 10 classes) gathered via automated Google Images scraping (e.g., bed, bonsai tree, car, cat, crumpled paper ball, orange-juice cup, motorcycle, tree, turtle, zebra), resized to 416×416, split 70/20/10 for train/val/test.
+	•	Trains YOLOv3 on GPU; exposes a web API that ingests the 3×3 tile set + text clue, runs detection, and returns the tiles to click.
+	•	Evaluates with confusion matrix, precision–recall and F1–confidence curves, and reports mAP@0.5 ≈ 0.915. Inference is designed to run on CPU-only as well.  ￼
+
+2) Steps
+	1.	Data collection & labeling – script pulls images for 10 target categories; resize and organize into train/val/test; annotate boxes.  ￼
+	2.	Model training – YOLOv3 trained to the “best.pt”; best results around epoch 310 (~2.37 h for 10k images on an i9-13900KF + RTX 3070 Ti machine).  ￼
+	3.	System architecture – hCAPTCHA widget ➜ ImageHandler ➜ local Web API ➜ YOLOv3 ➜ selected tiles; integrates with a demo login page.  ￼
+	4.	Challenge workflow – capture tiles + clue → detect target objects → return indices; if none found, return “no match”; otherwise simulate clicks.  ￼
+	5.	Evaluation – >300 challenges/day on the demo site; compute confusion matrix, PR/F1 curves, and timing.  ￼
+
+3) Results
+	•	Overall performance: 5,867 / 6,000 challenges solved (≈98%); ~3.5 s average per challenge.  ￼
+	•	CPU-only inference: works on a dual-core Intel i5-4300U 1.9 GHz, 16 GB RAM, no GPU.  ￼
+	•	Model quality: confusion matrix shows high per-class precision with some confusion between visually similar classes (e.g., bonsai tree ↔ tree). mAP@0.5 ≈ 0.915; PR and F1–confidence curves indicate strong precision at practical thresholds.  ￼
+	•	Limitations noted by authors: recommend testing on additional datasets and expanding categories to further validate generalization. 
