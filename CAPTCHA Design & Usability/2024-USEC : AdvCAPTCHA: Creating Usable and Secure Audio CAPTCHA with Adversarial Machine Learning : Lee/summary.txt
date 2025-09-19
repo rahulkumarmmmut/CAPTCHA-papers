@@ -1,0 +1,24 @@
+Summary
+
+1) Methodology
+
+Proposes AdvCAPTCHA, an audio CAPTCHA family that uses adversarial ML to stay human-intelligible while misleading ASR systems. Three variants:
+	•	Kenan — DFT-based component removal below an intensity threshold to induce ASR mistranscriptions with minimal human impact.  ￼
+	•	Devil — generates imperceptible adversarial background noise via a substitute model and gradient attacks, tuned until the target commercial ASR also fails.  ￼
+	•	Volcano — targeted defense combining “digits for humans only” (STFT-based removal so ASR returns empty) with “digits for machines only” (volume-reduced audio humans can’t perceive but ASR can), enabling attack detection (honeypot-style).  ￼
+
+Security evaluation covers commercial ASR (Google, Azure, IBM, Facebook Wit) and self-trained DeepSpeech models (black-box/white-box). Usability is tested with 121 sighted users and 11 PVIs. They introduce thresholding (minimum correct digits out of 6) to tune the security–usability trade-off.  ￼
+
+2) Steps
+	1.	Generate tasks from TTS digits; build Kenan/Devil/Volcano pipelines and pick “victim” ASR models used during perturbation crafting.  ￼
+	2.	Attack evaluation with five commercial ASRs and an ensemble; train/fine-tune DeepSpeech for black-/white-box settings. Compute digit error rate and derive estimated attack success for 6-digit tasks under varying thresholds T.  ￼
+	3.	Detection study (Volcano) — measure probability that ASR outputs machine-only digits when humans do not.  ￼
+	4.	Usability studies — online tests with 121 non-PVI and 11 PVI participants: accuracy, completion time, satisfaction/easiness; derive ROC curves to select global thresholds.  ￼
+
+3) Results
+	•	Against commercial ASR (ensemble): Baseline ≈ 70.10% success; Kenan ≈ 31.91%; Volcano ≈ 0.22%; Devil is 92.51% at T=5 but improves to ≈61.19% if T=6 (showing the value of thresholding).  ￼
+	•	Self-trained models: Attack success typically ≤5–6% (both black- and white-box), much lower than commercial ASRs.  ￼
+	•	Attack detection (Volcano): Captures ensemble attackers ≈99% of the time upon failure; e.g., Azure ≈62.7%, Google Default ≈58.6% detection probabilities. Humans almost never trigger machine-only digits.  ￼
+	•	Usability (non-PVI, n=121): Accuracy—Baseline 89.8%, Kenan 89.5%, Devil 95.3% (drops to 79.1% at T=6), Volcano 90.1%. Median times ~16.1 s (Baseline), 17.0 s (Devil), 19.9 s (Kenan), 22.7 s (Volcano). Baseline generally rated easiest/most satisfying.  ￼
+	•	Usability (PVI, n=11): All ≥90% accuracy; Devil preferred over Baseline by more PVIs due to quieter, less distracting noise; Volcano least preferred.  ￼
+	•	Takeaway: Adversarially-perturbed audio can substantially lower ASR success (esp. Kenan/Volcano) and enable attacker detection (Volcano), with tunable thresholds to balance usability and security. 
