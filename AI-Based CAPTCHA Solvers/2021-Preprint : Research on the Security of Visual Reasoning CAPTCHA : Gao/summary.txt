@@ -1,0 +1,25 @@
+📑 Summary   ￼
+
+Methodology
+
+The paper analyzes visual reasoning CAPTCHAs (e.g., Tencent VTT, Geetest, NetEase, Dingxiang) and proposes two attacks:
+	1.	a holistic solver that adapts the MAC reasoning network to output a clicked grid cell (ResNet-50 visual encoder + BiLSTM text encoder, 14×14 YOLO-style grid);
+	2.	a modular solver that decomposes the task into semantic parsing (program generator), detection (Faster R-CNN), classification (SENet for subtle attributes), and integration (combining visual + abstract attributes; e.g., dictionary lookups for Chinese characters, case mapping for letters).  ￼
+
+Steps
+	1.	Dataset & labeling — Collected 13,500 VTT image–instruction pairs; labeled answer boxes; split into 10k/2.5k/1k train/val/test. Built additional 5k-image attribute-labeled set to auto-generate 10k instructions for the modular pipeline.  ￼
+	2.	Holistic attack — Encode text (BiLSTM) and image (ResNet-50), run 16 reasoning cells (MAC-style), and classify the 14×14 grid to click the target cell. Train with Adam; output softmax over 196 cells.  ￼
+	3.	Modular attack —
+	•	Semantic parsing: seq-to-seq LSTM converts instruction → program (e.g., filter_shape[cone], relate[left]).
+	•	Detection: Faster R-CNN finds objects & basic attributes (color/size/shape).
+	•	Classification: SENet recognizes subtle attributes (tilt, notch, fracture, character class).
+	•	Integration: Execute the parsed program over detected objects; augment with abstract knowledge (dictionary for pronunciation/antonyms/components; case/ordering rules).  ￼
+	4.	Robustness & generalization — Fine-tune for higher logical complexity (2–3 reference objects) and new categories (Chinese characters), and port to Geetest/NetEase/Dingxiang schemes.  ￼
+	5.	Ablations & usability — Remove modules to measure contribution; compare attack vs. human success/time across schemes.  ￼
+
+Results
+	•	Holistic solver: 67.3% success on VTT (≈0.05 s per challenge, ~120× faster than humans). By scheme: VTT 67.3%, Geetest 66.7%, NetEase 77.8%, Dingxiang 86.5%. Failures dominated by classification (e.g., subtle notch/tilt) and abstract attributes (Chinese characters: only 32.9%).  ￼
+	•	Modular solver: 88.0% success on VTT (~0.96 s); module accuracies: semantic parsing 100%, detection 95.0%, classification 88.8%. Ported results: Geetest 90.8%, NetEase 86.2%, Dingxiang 98.6%.  ￼
+	•	Robustness: With more complex prompts (2–3 references), success remains ~42–45% after light fine-tuning; adding new categories (100 Chinese classes) yields 69.7% (vs. 32.9% baseline on Chinese in holistic).  ￼
+	•	Humans vs bots: Human pass rates 87–95% with ~4.5–10.7 s response times; attacks meet the standard “broken if ≥1% precision” and often approach/exceed human success.  ￼
+	•	Design guidance: Security improves with larger category sets, occlusion, and more intra-class variations; leveraging commonsense knowledge poses persistent challenges to current ML.
