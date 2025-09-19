@@ -1,0 +1,19 @@
+Summary
+
+1) Methodology
+	•	Two-part study: (a) Empirical evaluation of multimodal LLMs (GPT-4o, Gemini 1.5 Pro 2.0) on text-, image-, and reasoning-based CAPTCHAs using zero-shot and chain-of-thought (CoT) prompting; (b) User study measuring how many attempts humans need to pass the same families of CAPTCHAs.
+	•	From these findings, the authors propose IllusionCAPTCHA—a “human-easy, AI-hard” design that embeds visual illusions into images so humans can still recognize the hidden content while VLMs fail.
+	•	Generation pipeline: use an Illusion Diffusion model (ControlNet-based) to blend a base image with a prompt (e.g., “huge forest”), generate 50 candidates at fixed illusion strength 1.5, and pick the one with lowest cosine similarity to the base image (hardest for models while still human-legible).
+	•	Multiple-choice options: include the true answer, the generation prompt, and two detailed distractors; add an “Inducement Prompt” pattern that systematically nudges LLMs toward verbose, wrong choices.  ￼
+
+2) Steps
+	1.	Baseline measurements (LLMs): Build a dataset of real-world CAPTCHAs (text/image/reasoning); evaluate GPT-4o and Gemini with zero-shot & CoT; compute success rates.
+	2.	Baseline human study: 23 participants attempt the same categories; record the attempt count to pass (1st/2nd/3rd/>3).
+	3.	Design IllusionCAPTCHA: (i) Illusionary image generation, (ii) option construction, (iii) inducement prompts.
+	4.	Evaluate IllusionCAPTCHA: Test GPT-4o/Gemini on illusionary text & images (zero-shot & CoT); measure whether inducement prompts force predictable wrong choices; run a human study on IllusionCAPTCHA to record first-try success.  ￼
+
+3) Results
+	•	LLM baseline on real CAPTCHAs: Average success (zero-shot) = 38.48% (GPT-4o) / 31.51% (Gemini); (CoT) = 46.06% / 33.63%. Text CAPTCHAs are easiest for LLMs; image & reasoning are harder. E.g., zero-shot reCAPTCHA: 40%/33.33%; hCaptcha: 40%/36.66%.  ￼
+	•	Human baseline on real CAPTCHAs: Only 33.33% pass on the first attempt on average; many require ≥2 attempts, especially for image/reasoning types.  ￼
+	•	IllusionCAPTCHA vs. LLMs: 0% success for GPT-4o and Gemini on both illusionary text and images, with and without CoT. Inducement prompts achieve 100% targeted misdirection across first & second attempts.  ￼
+	•	IllusionCAPTCHA vs. humans: 86.95% pass on the first attempt, 8.69% on the second; markedly more usable than reasoning-based CAPTCHAs while remaining AI-hard. 
